@@ -34,10 +34,58 @@
           <strong>Try it free 7 days</strong> then $20/mo. thereafter
         </div>
         <form class="signup__form">
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="Last Name" />
-          <input type="email" placeholder="Email Address" />
-          <input type="password" placeholder="Password" />
+          <div class="form_field">
+            <input type="text" placeholder="First Name" />
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zm0-192a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z"
+              />
+            </svg>
+          </div>
+
+          <div class="form_field">
+            <input type="text" placeholder="Last Name" />
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zm0-192a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z"
+              />
+            </svg>
+          </div>
+
+          <div class="form_field">
+            <input type="email" placeholder="Email Address" />
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zm0-192a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z"
+              />
+            </svg>
+          </div>
+
+          <div class="form_field">
+            <input type="password" placeholder="Password" />
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zm0-192a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z"
+              />
+            </svg>
+          </div>
+
           <button class="signup__submit-btn" type="submit">
             Claim your free trial
           </button>
@@ -48,5 +96,63 @@
         </form>
       </section>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const submit_btn = document.querySelector('.signup__submit-btn');
+        submit_btn.addEventListener('click', (event) => {
+          event.preventDefault();
+          checkFormFields();
+        });
+      });
+
+      function checkFormFields() {
+        const fields = document.querySelectorAll('input');
+
+        fields.forEach((field) => {
+          const inputType = field.getAttribute('type');
+          const phd = field.getAttribute('placeholder');
+          const nextElement = field.nextElementSibling;
+
+          if (nextElement.style.display === 'inline') {
+            // warning already present
+            hideWarning(field);
+          }
+
+          if (inputType === 'text' && field.value === '') {
+            showWarning(field, phd + ' cannot be empty');
+          } else if (inputType === 'email') {
+            if (!field.checkValidity()) {
+              showWarning(field, 'Please enter a valid email');
+            } else if (field.value === '') {
+              showWarning(field, 'Looks like this is not an email');
+            }
+          } else if (inputType === 'password' && field.value === '') {
+            showWarning(field, 'Password cannot be empty');
+          }
+        });
+
+        function showWarning(element, message) {
+          const baap = element.parentElement;
+
+          const svg = baap.querySelector('svg');
+          svg.style.display = 'inline';
+
+          const warning = document.createElement('div');
+          warning.setAttribute('class', 'small');
+          warning.textContent = message;
+          baap.appendChild(warning);
+        }
+
+        function hideWarning(element) {
+          const baap = element.parentElement;
+
+          const svg = baap.querySelector('svg');
+          svg.style.display = 'none';
+
+          svg.nextElementSibling.remove();
+        }
+      }
+    </script>
   </body>
 </html>
