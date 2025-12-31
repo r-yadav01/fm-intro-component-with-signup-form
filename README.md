@@ -32,8 +32,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github link](https://github.com/r-yadav01/fm-intro-component-with-signup-form)
+- Live Site URL: [Github pages](https://r-yadav01.github.io/fm-intro-component-with-signup-form/)
 
 ## My process
 
